@@ -43,9 +43,9 @@ class Patrulater
                     
                 }
                 
-                void Afisare_Punct()
+                void Afisare_Punct(char P)
                 {
-                    cout << endl <<"Coordonatele Punctului sunt : x = " << x << " y = " << y << " z = " << z;
+                    cout << endl << "Coordonatele Punctului " << P << " sunt : x = " << x << " y = " << y << " z = " << z;
                 }
         };
 
@@ -85,17 +85,17 @@ class Patrulater
         
         int Tip_Patrulater()
         {
-            if(laturi[0] >= laturi[1] + laturi[2] + laturi[3]) return -1;
-            if(laturi[1] >= laturi[0] + laturi[2] + laturi[3]) return -1;
-            if(laturi[2] >= laturi[0] + laturi[1] + laturi[3]) return -1;
-            if(laturi[3] >= laturi[0] + laturi[1] + laturi[2]) return -1;
+            if(laturi[0] >= laturi[1] + laturi[2] + laturi[3] || laturi[0] == 0) return -1;
+            if(laturi[1] >= laturi[0] + laturi[2] + laturi[3] || laturi[1] == 0) return -1;
+            if(laturi[2] >= laturi[0] + laturi[1] + laturi[3] || laturi[2] == 0) return -1;
+            if(laturi[3] >= laturi[0] + laturi[1] + laturi[2] || laturi[3] == 0) return -1;
 
             if(laturi[0] == laturi[1] && laturi[1] == laturi[2] && laturi[2] == laturi[3] && laturi[4] == laturi[5]) return 2;
-            //2 inseamna ca e patrat
+            //patrat
             else
             {
                 if(laturi[0] == laturi[1] && laturi[1] == laturi[2] && laturi[2] == laturi[3]) return 1;
-                //1 inseamna ca e romb;
+                //romb;
                 if(laturi[0] == laturi[2] && laturi[1] == laturi[3] && laturi[4] == laturi[5]) return 3;
                 //dreptunghi
                 if(laturi[0] == laturi[2] && laturi[1] == laturi[3]) return 4;
@@ -103,22 +103,23 @@ class Patrulater
                 if((p1.y - p2.y) / (p1.x - p2.x) == (p3.y - p4.y) / (p3.x - p4.x) || (p2.y - p3.y) / (p2.x - p3.x) == (p1.y - p4.y) / (p1.x - p4.x)) return 5;
                 //trapez
             }
-            //daca am ajuns aici , adica nu s-a intalnit nici un RETURN inseamna
-            //ca patrulaterul e Oarecare
-            return 0; // 0 inseamna ca patrulateru e oarecare;
+
+            return 0; //oarecare;
         }
 
         void Afisare_Patrulater(void)
         {
-            p1.Afisare_Punct();
-            p2.Afisare_Punct();
-            p3.Afisare_Punct();
-            p4.Afisare_Punct();
+            p1.Afisare_Punct('A');
+            p2.Afisare_Punct('B');
+            p3.Afisare_Punct('C');
+            p4.Afisare_Punct('D');
+
+            cout << endl;
 
             for (int i = 0; i < 4; i++)
                 cout << endl << "Latura " << (i+1) << " = " << laturi[i];
 
-            cout << endl << "Perimetrul patrulater este = " << Perimetru();
+            cout << endl << endl << "Perimetrul patrulater este = " << Perimetru();
         }
 };
 
@@ -139,30 +140,31 @@ int main (void)
 
     switch (Patrulater.Tip_Patrulater())
     {
-        case -1: cout << endl << "Patrulaterul este OARECARE !!!";
+        case -1: cout << endl << "Nu se poate forma un patrulater !!!";
+            break;
+        
+        case 0: cout << endl << "Patrulaterul este OARECARE !!!\n";
+            Patrulater.Afisare_Patrulater();
+            break;
+
+        case 1: cout << endl << "Patrulaterul este ROMB !!!\n";
             Patrulater.Afisare_Patrulater();
             break;
         
-        case 1: cout << endl << "Patrulaterul este ROMB !!!";
-            Patrulater.Afisare_Patrulater();
-            break;
-        
-        case 2: cout << endl << "Patrulaterul este PATRAT !!!";
+        case 2: cout << endl << "Patrulaterul este PATRAT !!!\n";
             Patrulater.Afisare_Patrulater();
             break;
 
-        case 3: cout << endl << "Patrulaterul este DREPTUNGHI !!!";
+        case 3: cout << endl << "Patrulaterul este DREPTUNGHI !!!\n";
             Patrulater.Afisare_Patrulater();
             break;
 
-        case 4: cout << endl << "Patrulaterul este PARALELOGRAM !!!";
+        case 4: cout << endl << "Patrulaterul este PARALELOGRAM !!!\n";
             Patrulater.Afisare_Patrulater();
             break;
 
-        case 5: cout << endl << "Patrulaterul este Trapez !!!";
+        case 5: cout << endl << "Patrulaterul este Trapez !!!\n";
             Patrulater.Afisare_Patrulater();
             break;
     }
-
-    cout << "";
 }
