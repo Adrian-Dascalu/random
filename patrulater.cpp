@@ -163,4 +163,6 @@ int main (void)
             Patrulater.Afisare_Patrulater();
             break;
     }
+
+    cout << "";
 }
